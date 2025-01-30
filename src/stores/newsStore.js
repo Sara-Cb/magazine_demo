@@ -2,6 +2,8 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
 export const useNewsStore = defineStore('news', () => {
+    const myAPIKey = 'pub_66923ed10e95a8d55328f2c821542dc402461';
+
     const topics = ref([
         { title: 'Tutti i temi', id: 'all' },
         { title: 'Ambiente', id: 'environment' },
@@ -40,17 +42,34 @@ export const useNewsStore = defineStore('news', () => {
     async function fetchNews(topicId) {
         try {
             const url = topicId && topicId !== 'all'
-                ? `https://api.example.com/news?topic=${topicId}`
-                : `https://api.example.com/news`
+                ? `https://newsdata.io/api/1/news?apikey=${myAPIKey}&language=it&q=${topicId}`
+                : `https://newsdata.io/api/1/news?apikey=${myAPIKey}&language=it`
 
             const response = await fetch(url)
             const data = await response.json()
-            articles.value = data.articles || []
+
+            articles.value = (data.results || []).map(article => ({
+                title: article.title || 'Senza titolo',
+                description: article.description || 'Nessuna descrizione disponibile',
+                link: article.link || '#',
+                source: article.source_id || 'Sconosciuto',
+                image_url: article.image_url || null,
+                tags: article.keywords || [],
+                creator: article.creator || [],
+                creatorImage: 'http//www.placekittens.com/300/' || null,
+                content: article.content || 'Nessun contenuto disponibile',
+                date: article.pubDate || 'Sconosciuta',
+                category: article.category || [],
+                country: article.country || 'Sconosciuto',
+            }))
+
+            console.log('News trasformate:', articles.value)
         } catch (error) {
             console.error('Errore fetch news:', error)
             articles.value = []
         }
     }
+
 
     return {
         topics,
