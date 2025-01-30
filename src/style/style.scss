@@ -1,4 +1,5 @@
 @forward './partials/header';
+@forward './partials/newsPage';
 @import url('https://fonts.googleapis.com/css2?family=Anybody:ital,wght@0,100..900;1,100..900&display=swap');
 
 
@@ -13,7 +14,7 @@ body {
     font-family: 'Anybody', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: linen;
+    background-color: whitesmoke;
     position: relative;
     top: 0;
     left: 0;
@@ -30,20 +31,15 @@ main {
     left: 0;
     right: 0;
     bottom: 0;
-    padding: 1rem;
     width: 100%;
     max-width: 100vw;
+    max-height: calc(100vh - 4.5rem);
+    padding: 1rem;
     overflow-y: auto;
 
-    &.newsPage {
-        top: 7.5rem;
-    }
-
     footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        margin: 0;
+        margin-top: 2.5em;
     }
 }
 

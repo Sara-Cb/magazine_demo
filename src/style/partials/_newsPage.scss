@@ -1,0 +1,9 @@
+main.newsPage {
+
+    @media screen and (min-width: 768px) {
+        top: 7.5rem;
+        max-height: calc(100vh - 7.5rem);
+    }
+
+
+}

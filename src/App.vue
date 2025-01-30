@@ -1,7 +1,7 @@
 <script setup>
 import { RouterView, useRoute } from 'vue-router'
-import MyHeader from './components/MyHeader.vue'
-import MyFooter from './components/MyFooter.vue'
+import HeaderComp from './components/HeaderComponent.vue'
+import FooterComp from './components/FooterComponent.vue'
 import { computed } from 'vue'
 
 const route = useRoute()
@@ -15,10 +15,10 @@ const mainClass = computed(() => {
 </script>
 
 <template>
-  <MyHeader />
+  <HeaderComp />
   <main :class="mainClass">
     <RouterView />
-    <MyFooter />
+    <FooterComp />
   </main>
 </template>
 

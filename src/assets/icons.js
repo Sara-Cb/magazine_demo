@@ -5,9 +5,11 @@ import {
     faMagnifyingGlass,
     faBars,
     faTimes,
-    faUser
+    faUser,
+    faImage,
+    faA
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faMagnifyingGlass, faBars, faTimes, faUser)
+library.add(faMagnifyingGlass, faBars, faTimes, faUser, faImage, faA)
 
 export default FontAwesomeIcon

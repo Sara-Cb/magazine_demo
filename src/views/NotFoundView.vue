@@ -23,7 +23,7 @@
 
   .error-message {
     font-size: 1.25rem;
-    color: darken(grey, 10%);
+    color: rgb(103, 103, 103);
     margin-bottom: 1.5rem;
   }
 
@@ -33,7 +33,7 @@
     text-decoration: underline;
 
     &:hover {
-      color: darken(red, 10%);
+      color: rgb(183, 0, 0);
     }
   }
 
