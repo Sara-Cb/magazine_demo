@@ -7,9 +7,10 @@ import {
     faTimes,
     faUser,
     faImage,
-    faA
+    faA,
+    faChevronDown
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faMagnifyingGlass, faBars, faTimes, faUser, faImage, faA)
+library.add(faMagnifyingGlass, faBars, faTimes, faUser, faImage, faA, faChevronDown)
 
 export default FontAwesomeIcon

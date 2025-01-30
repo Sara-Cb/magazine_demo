@@ -24,7 +24,6 @@ const mainItems = ref([
     { title: 'Bookazine', subtitle: 'Una rivista da leggere e un libro da conservare.', id: 'bookazine' }
 ])
 
-// Array dei "blocchi piccoli" (in basso, 8 elementi)
 const subItems = ref([
     { title: 'Chi siamo', id: 'about' },
     { title: 'Comitato editoriale', id: 'editorial' },

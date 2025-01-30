@@ -37,7 +37,6 @@
     }
   }
 
-  // Media query per schermi grandi
   @media (min-width: 1024px) {
     .error-code {
       font-size: 6rem;

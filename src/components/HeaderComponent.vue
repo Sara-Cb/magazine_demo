@@ -12,7 +12,7 @@ const route = useRoute()
 const isMenuOpen = ref(false)
 const isSearchOpen = ref(false)
 const isNewsPage = computed(() => route.name === 'news')
-const isWindowL = computed(() => window.innerWidth > 768)
+const isWindowL = ref(window.innerWidth > 768)
 
 window.addEventListener('resize', () => {
   isWindowL.value = window.innerWidth > 768
