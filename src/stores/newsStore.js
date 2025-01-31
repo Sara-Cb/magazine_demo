@@ -13,42 +13,42 @@ export const useNewsStore = defineStore('news', () => {
         { title: 'Politica', id: 'politics' },
         { title: 'Società', id: 'society' },
         { title: 'Welfare', id: 'welfare' }
-    ])
+    ]);
 
-    const currentTopicId = ref('all')
-
-    const articles = ref([])
+    const currentTopicId = ref('all');
+    const articles = ref([]);
+    const loading = ref(false);
 
     const currentTopicTitle = computed(() => {
-        const t = topics.value.find(item => item.id === currentTopicId.value)
-        return t ? t.title : 'Sconosciuto'
-    })
-
-    function getTopicIdByName(title) {
-        const found = topics.value.find(t => t.title.toLowerCase() === title.toLowerCase())
-        return found ? found.id : null
-    }
-
-    function getTopicNameById(id) {
-        const found = topics.value.find(t => t.id === id)
-        return found ? found.title : null
-    }
+        const t = topics.value.find(item => item.id === currentTopicId.value);
+        return t ? t.title : 'Sconosciuto';
+    });
 
     async function setTopic(newTopicId) {
-        currentTopicId.value = newTopicId
-        await fetchNews(newTopicId)
+        currentTopicId.value = newTopicId;
+        loading.value = true;
+        await fetchNews(newTopicId);
     }
 
     async function fetchNews(topicId) {
+        articles.value = [];
         try {
             const url = topicId && topicId !== 'all'
                 ? `https://newsdata.io/api/1/news?apikey=${myAPIKey}&language=it&q=${topicId}`
-                : `https://newsdata.io/api/1/news?apikey=${myAPIKey}&language=it`
+                : `https://newsdata.io/api/1/news?apikey=${myAPIKey}&language=it`;
 
-            const response = await fetch(url)
-            const data = await response.json()
+            const response = await fetch(url);
+            const data = await response.json();
 
-            articles.value = (data.results || []).map(article => ({
+            console.log('Dati ricevuti:', data);
+
+            if (!data || !data.results || !Array.isArray(data.results)) {
+                console.error('Errore: data.results non è un array valido!', data.results);
+                loading.value = false;
+                return;
+            }
+
+            articles.value = data.results.map(article => ({
                 title: article.title || 'Senza titolo',
                 description: article.description || 'Nessuna descrizione disponibile',
                 link: article.link || '#',
@@ -56,29 +56,31 @@ export const useNewsStore = defineStore('news', () => {
                 image_url: article.image_url || null,
                 tags: article.keywords || [],
                 creator: article.creator || [],
-                creatorImage: 'http//www.placekittens.com/300/' || null,
+                creatorImage: 'https://www.placekittens.com/300/' || null,
                 content: article.content || 'Nessun contenuto disponibile',
-                date: article.pubDate || 'Sconosciuta',
+                date: article.pubDate || new Date().toISOString(),
                 category: article.category || [],
                 country: article.country || 'Sconosciuto',
-            }))
+            }));
 
-            console.log('News trasformate:', articles.value)
+            articles.value.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            console.log('Articles aggiornato:', articles.value);
+            loading.value = false;
+
         } catch (error) {
-            console.error('Errore fetch news:', error)
-            articles.value = []
+            console.error('Errore fetch news:', error);
+            loading.value = false;
         }
     }
-
 
     return {
         topics,
         currentTopicId,
-        articles,
         currentTopicTitle,
+        articles,
+        loading,
         setTopic,
         fetchNews,
-        getTopicIdByName,
-        getTopicNameById
-    }
-})
+    };
+});

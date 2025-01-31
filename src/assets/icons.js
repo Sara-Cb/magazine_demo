@@ -8,9 +8,13 @@ import {
     faUser,
     faImage,
     faA,
-    faChevronDown
+    faChevronDown,
+    faChevronUp,
+    faQuoteLeft,
+    faQuoteRight,
+    faQ
 } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faMagnifyingGlass, faBars, faTimes, faUser, faImage, faA, faChevronDown)
+library.add(faMagnifyingGlass, faBars, faTimes, faUser, faImage, faA, faChevronDown, faChevronUp, faQuoteLeft, faQuoteRight)
 
 export default FontAwesomeIcon

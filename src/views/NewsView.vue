@@ -1,56 +1,68 @@
 <script setup>
-import TopicsList from '@/components/header/TopicsList.vue';
-import { onMounted, ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useNewsStore } from '@/stores/newsStore'
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useNewsStore } from '@/stores/newsStore';
+import TitleBanner from '@/components/news/TitleBanner.vue';
+import ActionBanner from '@/components/news/ActionBanner.vue';
+import NewsHero from '@/components/news/NewsHero.vue';
+import QuoteBanner from '@/components/news/QuoteBanner.vue';
+import BlogBanner from '@/components/news/BlogBanner.vue';
 
-const store = useNewsStore()
-const route = useRoute()
-const router = useRouter()
+const store = useNewsStore();
+const route = useRoute();
+const router = useRouter();
 
-const isMenuOpen = ref(false)
-const news = ref([])
+const topic = ref('all');
 
-async function loadNews(topicId) {
-    await store.setTopic(topicId)
-    news.value = store.articles
+let lastMinute = ref([]);
+let otherNews = ref([]);
+
+async function loadNews() {
+    console.log('Caricamento notizie per il topic:', topic.value);
+    await store.setTopic(topic.value);
 }
 
 onMounted(async () => {
     if (!route.params.topic) {
-        router.replace('/news/all')
+        router.replace({ name: 'news', params: { topic: 'all' } });
+        return;
     }
-    await loadNews(route.params.topic)
-})
+    topic.value = route.params.topic;
+    await loadNews();
 
-watch(() => route.params.topic, async (newTopic) => {
-    if (newTopic) {
-        await loadNews(newTopic)
-    }
-})
+    lastMinute.value = store.articles.slice(0, 5);
+    otherNews.value = store.articles.slice(5);
 
-function handleToggleMenu() {
-    isMenuOpen.value = !isMenuOpen.value
-}
+});
+
+
+
 </script>
 
 <template>
     <div class="newsView">
-        <div class="topic">
-            <h1 class="title">{{ store.currentTopicTitle }}</h1>
-            <div class="menu">
-                <font-awesome-icon :icon="['fas', 'chevron-down']" @click="handleToggleMenu" />
-                <TopicsList :isOpen="isMenuOpen" />
-            </div>
-        </div>
+        <TitleBanner :title="store.currentTopicTitle" />
 
-        <div class="articles">
-            <div v-if="news.length === 0">Nessuna notizia disponibile.</div>
-            <div v-for="article in news" :key="article.link" class="article">
-                <h2>{{ article.title }}</h2>
-                <p>{{ article.description }}</p>
-                <a :href="article.link" target="_blank">Leggi di più</a>
-            </div>
+        <div v-if="store.loading">
+            <p>Caricamento delle notizie in corso...</p>
         </div>
+        <div v-else-if="lastMinute.length > 0">
+            <NewsHero :news="lastMinute" />
+        </div>
+        <div v-else>
+            <p>Nessuna notizia disponibile.</p>
+        </div>
+        <ActionBanner text="Il tuo supporto è fondamentale" link="#" linkTitle="Dai il tuo contributo" />
+        <div v-if="store.loading">
+            <p>Caricamento delle notizie in corso...</p>
+        </div>
+        <div v-else-if="otherNews.length > 0">
+            <NewsHero :news="otherNews" />
+        </div>
+        <div v-else>
+            <p>Nessuna notizia disponibile.</p>
+        </div>
+        <QuoteBanner />
+        <BlogBanner />
     </div>
 </template>
