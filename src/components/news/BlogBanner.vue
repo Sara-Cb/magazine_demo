@@ -40,7 +40,7 @@ const blogs = ref([
         <a :href="blog.address" v-for="(blog, index) in blogs" :key="index" class="blogCard">
             <img :src="blog.avatar" alt="Avatar" class="avatar" />
             <h3 class="blogTitle">{{ blog.title }}</h3>
-            <p class="author">{{ blog.author }}</p>
+            <p class="author">Di {{ blog.author }}</p>
         </a>
     </div>
 </template>

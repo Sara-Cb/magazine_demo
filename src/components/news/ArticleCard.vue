@@ -1,31 +1,45 @@
 <script setup>
-import { onMounted } from 'vue';
 
 const props = defineProps({
     article: {
         type: Object,
         default: () => { }
+    },
+    trending: {
+        type: Boolean,
+        default: false
+    },
+    position: {
+        type: Number,
+        default: 0
     }
 });
-
-onMounted(() => {
-    console.log('Card montata con: ' + props.article.title);
-});
-
-const colors = ['red', 'black', 'grey'];
-
-const randomColor = () => colors[Math.floor(Math.random() * colors.length)];
 
 </script>
 
 <template>
     <div v-if="!article.title">Nessuna notizia disponibile.</div>
-    <div class="articleCard card">
-        <h2>{{ article.title }}</h2>
-        <p>{{ article.description }}</p>
-        <a :href="article.link" target="_blank">Leggi di più</a>
-        <div class="cardImage" :class="randomColor()">
-            <img :src="article.image" alt="article.title" />
+    <a :href="article.link" target="_blank" class="articleCard card" :class="'article-' + position"
+        :style="{ 'background-image': 'url(' + article.image_url + ')' }">
+        <div class="overlay" :class="trending && 'trending'"></div>
+        <div class="contentWrapper">
+            <div class="tags" v-if="article.tags && article.tags.length > 0">
+                <span v-for="tag in article.tags" :key="tag" class="tag">{{ tag }}</span>
+            </div>
+            <div class="details">
+                <h3 class="title">{{ article.title }}</h3>
+                <p class="description">{{ article.description }}</p>
+                <div class="creator" v-if="article.creator || article.creatorImage">
+                    <img :src="article.creatorImage || '/default-avatar.jpg'" alt="Creator" />
+                    <span class="name">Di {{ article.creator }}</span>
+                </div>
+                <span class="date smallText">
+                    {{ new Date(article.date).toLocaleDateString('it-IT', {
+                        day: '2-digit', month: 'long', year:
+                            'numeric'
+                    }) }}
+                </span>
+            </div>
         </div>
-    </div>
+    </a>
 </template>

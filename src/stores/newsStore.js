@@ -55,12 +55,14 @@ export const useNewsStore = defineStore('news', () => {
                 source: article.source_id || 'Sconosciuto',
                 image_url: article.image_url || null,
                 tags: article.keywords || [],
-                creator: article.creator || [],
-                creatorImage: 'https://www.placekittens.com/300/' || null,
+                creator: article.creator || 'Sconosciuto',
+                creatorImage: 'https://www.placekittens.com/300/300' || null,
                 content: article.content || 'Nessun contenuto disponibile',
                 date: article.pubDate || new Date().toISOString(),
                 category: article.category || [],
                 country: article.country || 'Sconosciuto',
+                audio_url: article.audio_url || null,
+                video_url: article.video_url || null,
             }));
 
             articles.value.sort((a, b) => new Date(b.date) - new Date(a.date));
