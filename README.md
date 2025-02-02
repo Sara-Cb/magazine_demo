@@ -1,29 +1,31 @@
-# magazine_demo
+# 📰 Magazine Homepage Clone
+This project was developed as part of a technical test for a job interview. The objective was to replicate a Figma design representing the homepage of an online magazine.
 
-This template should help get you started developing with Vue 3 in Vite.
+# 🚀 Tech Stack
+ - Vue.js (Vite) 🟢
+ - Pinia 🌟
+ - SCSS 🎨
+ - FontAwesome ✨
+ - News API: newsdata.io 📡
 
-## Recommended IDE Setup
+# 📋 About the Project
+This project focuses on reproducing a visually appealing and responsive homepage for an online magazine. The design provided was implemented with Vue.js and styled using SCSS. The content dynamically fetches real news articles from the newsdata.io API.
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Although the task was initially scoped to be completed in using familiar technologies (React, in my case), I took this opportunity to learn and practice Vue.js. 
 
-## Customize configuration
+## That's why I'd like to add a little
+# ⚠️ Disclaimer
+I took this opportunity to enhance my skills and deepen my understanding of Vue.js. Although I had previously studied Vue.js, this project marked my first practical implementation.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+Through this challenge I was more focused about functionalities, so here's a few I successfully learned and applied:
 
-## Project Setup
+ - Vue Router for dynamic navigation.
+ - Pinia for state management.
+ - FontAwesome for icon integration.
+ - Real-world API integration by fetching live data from newsdata.io.
 
-```sh
-npm install
-```
+This approach extended the time I invested, but it allowed me to deliver a high-quality, functional application while expanding my expertise with tools that align with the company's tech stack.
 
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+# 🧑‍💻 Author
+Sara Campobasso
+[Linkedin](https://www.linkedin.com/in/sara-campobasso/)
