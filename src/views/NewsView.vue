@@ -50,7 +50,8 @@ onMounted(async () => {
         <div v-else>
             <p>Nessuna notizia disponibile.</p>
         </div>
-        <ActionBanner text="Il tuo supporto è fondamentale" link="#" linkTitle="Dai il tuo contributo" />
+        <QuoteBanner />
+        <BlogBanner />
         <div v-if="store.loading" class="loader">
             <p>Caricamento delle notizie in corso...</p>
         </div>
@@ -58,7 +59,6 @@ onMounted(async () => {
         <div v-else>
             <p>Nessuna notizia disponibile.</p>
         </div>
-        <QuoteBanner />
-        <BlogBanner />
+        <ActionBanner text="Il tuo supporto è fondamentale" link="#" linkTitle="Dai il tuo contributo" />
     </div>
 </template>
